@@ -32,10 +32,10 @@ class App extends Component {
         const filteredRobots = robots.filter(robot => {
             return robot.name.toLocaleLowerCase().includes(searchfield.toLocaleLowerCase())
         })
-        if (!robots.length) {
-            return <h1>Loading</h1>
-        } else {
-            return (
+
+        return !robots.length ?
+            <h1>Loading</h1> :
+            (
                 <div>
                     <h1 className="tc f1">RoboFriends</h1>
                     <SearchBox searchChange={this.onSearchChange} />
@@ -44,7 +44,7 @@ class App extends Component {
                     </Scroll>
                 </div >
             );
-        }
+
     }
 }
 
