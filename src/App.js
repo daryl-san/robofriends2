@@ -3,16 +3,22 @@ import CardList from "./CardList";
 import { robots } from './robots';
 import SearchBox from "./SearchBox";
 import './app.css';
-
+import Scroll from './Scroll.js';
 
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
-            robots: robots,
+            robots: [],
             searchfield: ''
         }
+    }
+
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(users => { this.setState({ robots: users }) });
     }
 
     //always have non-native functions to be formatted as  
@@ -30,7 +36,9 @@ class App extends Component {
             <div>
                 <h1 className="tc f1">RoboFriends</h1>
                 <SearchBox searchChange={this.onSearchChange} />
-                <CardList robots={filteredRobots} />
+                <Scroll>
+                    <CardList robots={filteredRobots} />
+                </Scroll>
             </div >
         );
     }
